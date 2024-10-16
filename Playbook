@@ -1,0 +1,364 @@
+# Purpose Of The Playbook
+
+The purpose of this is to:
+- Provide an implementation overview and what steps you need to follow to implement new tracking on the website.
+- Provide how to create and maintain a solution design.
+- Provide dataLayer scripts and how to create one adhering to existing structure.
+- Provide instructions to configure Adobe Launch if you are onboarding a new product.
+- Provide insight into creating and maintaining report suites.
+- Provide information on how to configure rules, extensions, and data elements in Adobe Launch.
+- Provide step-by-step instructions on how to track new events.
+
+## Implementation Overview
+
+### Solution Design
+This outlines what data you want to track about your users and their interactions (the plan).
+
+### DataLayer Implementation
+These are scripts that capture user actions on your website (like clicks and form submissions).
+
+### Adobe Launch Property Configuration
+Contains and manages rules and data elements that send data to Adobe Analytics. (one-time setup)
+
+### Report Suite Setup
+This creates a dedicated space in Adobe Analytics to store all the collected data. (one-time setup)
+
+### Setting eVars and Events in Adobe Analytics
+Here you define specific user actions and details you want to track and how it gets displayed in your reporting (what gets measured).
+
+### Rules Configuration in Adobe Launch
+These are tags/rules that help customize and control how data gets sent based on certain conditions.
+
+## Solution Design
+
+### Solution Design Documentation
+The solution design document, also called a solution design reference (SDR), acts as the blueprint for your analytics implementation. It translates specific objectives identified by various stakeholders into measurable variables (eVars) within Adobe Analytics. This document plays a critical role in ensuring everyone involved is on the same page about reporting needs, preventing the potential miss of collecting crucial data.
+
+The solution design sheet has 4 tabs:
+- **Tracking requirements**: Outlines business requirements by various stakeholders and maps them against the eVars and events. If there are no existing eVars or events that map to new requirements, you would create new eVars or events accordingly.
+- **Analytics SDR**: Keeps track of all the eVars (conversion variables or parameters or dimensions) and events (metrics) being tracked in your property. This tab should be maintained and updated based on new implementations or disabling existing eVars and events. This tab looks very similar to your report suite (more on report suite later).
+- **How to initialise the dataLayer**: This tab gives information to your developer on how they can initialise the dataLayer on the page. This step needs to be completed before deploying dataLayer on any page.
+- **dataLayer Documentation**: A dataLayer is a framework of JavaScript objects on your site that contain the variable values used in your Analytics implementation. It allows greater control and easier maintenance when assigning values to Analytics variables.
+
+Ownership and location of the design document: Determine who in your organisation will be responsible for maintaining the solution design document. This role can either be an individual or a team. Ensure that maintaining the solution design is preserved even through role changes or organisation restructures. It is a living document and must be properly maintained.
+
+## dataLayer Implementation
+
+Implementation of dataLayer involves working with the development team who can deploy the script on the website.
+
+- **Work with your site development team to implement the dataLayer**: Your site development team is primarily responsible for making sure the dataLayer object populates with correct values.
+- **Validate your dataLayer using a browser console**: Pepper’s dataLayer is named digitalData in accordance with standardisation instructions from Adobe. Once a dataLayer is created, you can validate that it is working using any browser’s developer console. You can open the developer console in most browsers using the F12 key. Type in digitalData on your console and you should see the js object with key-value pairs.
+
+## Adobe Launch Configuration
+
+### Creating an Adobe Launch Property
+A property is a container house with extensions, rules, data elements, and libraries as you deploy tags to your site. A property can be any grouping of one or more domains and subdomains. You can manage and track these assets similarly.
+
+Follow the steps below to see how you can set up a new Launch property.
+
+1. Go to the Data Collection from your home screen of Adobe Experience Cloud. You should now see the Tags Properties screen.
+2. To create a property, click the New Property button.
+3. Name your property (e.g., Asset Finance).
+4. As the domain, enter `my.peppermoney.com.au` since this is the domain where the pepper money asset finance site is hosted. Although the “Domain” field is required, the tag property will work on any domain where it’s implemented. The main purpose of this field is to pre-populate menu options in the Rule builder.
+5. Click the Save button.
+
+**Note**: This is a one-time step. If you already have a property setup, you don't need to set up a new property. However, if you are onboarding a new product with a different domain, it is recommended to create a separate property.
+
+### Implement asynchronous embed code
+
+The embed code is a `<script>` tag that you put on your webpages to load and execute the logic you build in tags. If you load the library asynchronously, the browser continues to load the page, retrieves the tag library, and executes it in parallel. In this case, there is only one embed code, which you put in the `<head>`.
+
+1. From the property Overview screen, click Environments in the left navigation to go to the environments page. Note that Development, Staging, and Production environments have been pre-created for you. In the Development row, click the Install icon to open the modal.
+2. Note that tags will default to the asynchronous embed codes.
+3. Click the Copy icon to copy the embed code to your clipboard.
+4. Click Close to close the modal.
+
+- Copy the code to be pasted in the head tag.
+- Implement the embed code in the `<head>` of the HTML Page.
+- The copied script must be implemented on all pages in the development environment. The script must be embedded in the `<head>` tag of all pages. Repeat the same process for the Staging environment and Production environment.
+
+### Adobe Launch Script Q&A
+
+Open the developer console and navigate to the “Console” tab.
+
+- Type the command, `_satellite.property.name` and if the script has been implemented correctly then this command should return ‘Asset Finance’ as the value. Please refer to an example screenshot below.
+
+After the Launch script has been validated, your Launch property is ready and you can start creating rules, data elements, extensions, and libraries. Before you start implementing rules in Launch, it is suggested to set up report suites in Adobe Analytics.
+
+**Note**: When you are adding new steps of the form or adding a new page, you need to follow the steps in this section and add the embedded code in the `<head>` tag of the new page.
+
+In the next section, we will go through setting up report suites, creating eVars, creating elements, and setting up a virtual report suite in Adobe Analytics.
+
+## Report Suite
+
+A report suite is a silo of data that Adobe Analytics uses to pull reports. Organisations can have multiple report suites, each holding unique information. While separate sections were once important, a single, unified report suite is now considered more beneficial. This shift is thanks to features like virtual report suites and flexible data processing. These features allow administrators to create customised subsets of data within the main suite, offering the advantage of analysing both overall performance and data specific to individual sites.
+
+### How to Create a Report Suite
+
+1. Click Analytics > Admin > Report Suites.
+2. Click Create New > Report Suite.
+3. Select either a predefined template or an existing report suite to use as a template.
+4. Fill in the fields described in the New Report Suite.
+5. Click Create Report Suite.
+
+### Virtual Report Suite
+
+Virtual report suites segment your Adobe Analytics data so you can control access to each segment. All data is collected in one global report suite and further divided based on brands. Pepper has two global report suites Pepper Money Prod and Pepper Money Dev for production environment and dev environments. It further has 6 virtual report suites. A prod and dev report suite for each product Main Website, Digital Mortgages, and Asset Finance segmented based on brand name. For example, any hit with a brand as Asset Finance is part of Asset Finance virtual report suite.
+
+- Global Report Suites
+- Virtual Report Suites
+
+Note that this is a one-time step and you don't need to create a report suite unless you are onboarding a new product.
+
+After the skeleton of your report suites is set up, the next step is to create events and variables (eVars) within the report suites to capture data.
+
+## Events and eVars
+
+In Adobe Analytics, events and eVars (engagement variables) work together to help you understand how users interact with your website or app. Here's a breakdown of their roles:
+
+### Events (sometimes called success events, metrics, or counters)
+
+- These are the actions users take on your site that you consider important.
+- Think of them as counters that track specific occurrences.
+- Examples of events could be:
+  - Login Clicks
+  - Button Clicks
+  - Form starts/steps/submissions
+
+### eVars (engagement variables)
+
+- These are like little data tags you attach to users.
+- They store descriptive information about the user or their session.
+- Unlike events which just count, eVars hold values that provide context.
+- eVars can be persistent, meaning they hold their value for a set time (e.g., 30 days) or until a specific event happens.
+
+Examples of eVars could be:
+- Brand
+- User Type
+- Form Name
+
+### How they work together
+
+Imagine you want to track how many people who want to take a loan for a specific asset type (eVar) submit the form (event).
+- When a user submits the form, you'd trigger both the "Form Complete" event and set the eVar with the asset type information.
+- This way, your reports can show how many times users from different asset types submitted the form.
+- Events give you the raw numbers of user actions.
+- eVars add context to those actions, letting you understand the "who" and "why" behind the data.
+
+Using events and eVars effectively allows you to create detailed reports that tell the story of user behaviour on your site.
+
+### Steps to create eVars and Events
+
+1. Click Analytics > Admin > Report Suites.
+2. Select the report suite for which you want to create an eVar or event and click on edit settings.
+3. Select Conversion Variables if you want to create eVars or Success Events if you want to create events.
+
+#### Configure eVars
+
+- If you want to add an eVar (dimension or parameter) that doesn't already exist, click on Add New.
+- Change the Status to Enabled, give the name to the eVar, add the description, and choose when the eVar expires, by default it is set to visit. You can read more about the scope (expiry) of the eVars here.
+
+#### Configure events
+
+- If you want to add an event that doesn't already exist, click on Add New.
+- Name the event accordingly, set the type for the event, and fill out fields accordingly.
+
+### Events and eVars: Building a Centralised Data Dictionary
+
+Events and engagement variables (eVars) act as the foundation for understanding user interactions within your Adobe Analytics implementation. To ensure clarity and consistency, it's recommended to manage these elements through a centralised data dictionary, similar to the Analytics SDR tab found in your solution design sheet.
+
+#### Here's a breakdown of best practices:
+
+- **Maintain a Centralised Data Dictionary**: The solution design sheet serves as the central document for your Analytics configuration. Keeping the SDR tab up-to-date with all events and eVars ensures a single source of truth. This eliminates confusion and simplifies onboarding for new team members.
+- **Avoid Duplicates**: Regularly reviewing the SDR tab before creating new events or eVars helps prevent redundancy. If a similar metric or data point already exists, leverage its capabilities instead of creating a duplicate.
+- **Standardise Naming Conventions**: Adhere to established naming conventions for events and eVars. This promotes clarity and facilitates efficient report building and analysis.
+- **Promote Team Collaboration**: Whenever a team member requests new tracking elements, direct them to the SDR tab for reference. This collaborative approach fosters consistency and reduces the risk of creating unnecessary events or eVars.
+
+By following these guidelines, you can create a well-organised data dictionary within your solution design sheet.
+
+## Rules/Tags Configuration
+
+### Rules Definition And Structure
+
+Adobe Launch uses rules to control when and how tags (marketing pixels, tracking scripts) fire on your website or app. These rules act like conditional statements, determining which tags are deployed based on specific criteria.
+
+#### Structure of a Launch Rule:
+
+- **Events (If)**: This defines the trigger for the rule. It can be one or more events (user actions like page loads or clicks) or data elements (dynamic values extracted from your site). You can also specify exceptions (conditions that prevent the rule from firing).
+- **Actions (Then)**: This defines what happens when the event(s) in the "If" section occur. This typically involves firing one or more tags configured within Launch.
+
+#### Example:
+
+Imagine tracking form completions for asset finance users. You'd set up a rule with these conditions:
+- **Event**: Form completion
+- **Data Element**: User Type (Asset)
+- **Page Location**: Asset Finance Page
+
+If all these conditions are met, the rule would trigger the firing of the relevant form completion tracking tag.
+
+#### Key Points:
+
+- Multiple events within a rule are joined by OR (any event triggers the rule).
+- Multiple conditions within a rule are joined by AND (all conditions must be met).
+- Rules can have an order assigned, controlling the execution sequence for rules sharing an event.
+- Rule components (events, conditions, actions) can be processed sequentially or in parallel depending on a property setting.
+
+## Data Elements
+
+A data element is a variable that stores a specific piece of information from your website. You can use data elements throughout your rules to build a dictionary of commonly used data. This dictionary makes your tracking more efficient because you define the data once and use it everywhere. All the parameters/variables from your Analytics SDR tab will have corresponding data elements.
+
+### Benefits of Data Elements:
+
+- **Organisation**: Group all your website data in one place for easy reference.
+- **Efficiency**: Define data once and use it in multiple rules, saving time and effort.
+- **Flexibility**: Easily update data sources without modifying multiple rules.
+
+### Examples of Data Elements:
+
+- **Asset Type**: Captures the type of asset the user is looking for.
+- **Page Name**: Extract the name of the current page from the URL.
+- **User ID**: Identify registered users for personalised tracking.
+- **Click Text**: Tracks the name of the button click so you can report on a specific button.
+
+### How to Create a Data Element:
+
+1. Go to the "Data Elements" tab in your Launch property.
+2. Click "Create New Data Element."
+3. Give it a clear name (e.g., "Asset Type").
+4. Choose the extension that provides the data (e.g., dataLayer manager).
+5. Select the specific data type (e.g., "Context Aware").
+6. Configure the data source (e.g., specify the dataLayer path. Make sure it matches the name of the parameter in your dataLayer object).
+7. Save the data element.
+
+### Using Data Elements in Rules:
+
+Once you have data elements, you can use them in your tracking rules in set variables:
+- **Example**: Create a rule to track form completions.
+- Use another data element for "Asset Type" to identify what asset the users submitted the form for.
+
+#### Key Points:
+
+- Data elements are crucial for organising and using website data in Launch.
+- They improve efficiency and flexibility in your tracking setup.
+- Different extensions may provide different data element types.
+
+By using data elements effectively, you can build a more organised and efficient tracking system for your website.
+
+## Extensions
+
+An extension is essentially an add-on that provides extra features or functionalities to an existing program. Think of it like adding new tools to your toolbox. Extensions unlock a whole new level of tracking capabilities, data elements, and event actions.
+
+### What extensions do:
+
+- **Expand your toolbox**: Extensions provide a variety of new tools you can use to track website activity. These tools can be:
+  - **Data elements**: These capture specific pieces of information from your website, like product categories, user IDs, or button clicks.
+  - **Events**: These track user actions on your site, such as page loads, video completions, or form submissions.
+  - **Client-side code**: These are like mini programs that perform specific tasks within Launch, like sending data to other platforms.
+
+### Finding extensions:
+
+- **Installed**: See all the extensions currently active in your Launch toolbox.
+- **Catalogue**: Explore a library of additional extensions you can add to expand your toolbox.
+- **Updates**: Check for improvements or bug fixes for your existing extensions.
+
+### Adding and configuring extensions:
+
+- **Browse the catalogue**: Find the extension that fits your needs, like one for reading dataLayer pushes or integrating with a specific marketing platform.
+- **Activate and configure**: Simply add the chosen extension to your Launch toolbox and adjust its settings if needed (not all extensions require configuration).
+
+#### Example:
+
+We are using a dataLayer Manager extension that reads the dataLayer pushes that we have implemented on the website.
+- **Configuration**: The extension is easy to configure and requires a dataLayer object be named so it can read the specific object on the website.
+- **Use**: After configuration, the extension can be used in rules to trigger specific actions.
+  - Click on Add Rule > Click on Add on events.
+  - Choose the dataLayer extension.
+  - Select Event Type as dataLayer push and give the appropriate event type name to the rules corresponding to your dataLayer push.
+  - Save the rule. Your rule will now trigger actions whenever there is a formcomplete dataLayer object on the website.
+
+#### Remember:
+
+- Changes only take effect after you publish them.
+- Adobe provides some core extensions, but there are many more from other vendors available in the catalogue.
+- You can even build custom extensions with the Core extension as a starting point, giving you control over your tracking setup.
+
+## Steps By Step Guide To Create Rules
+
+Below are the steps to follow to implement new website tracking rules within Adobe Launch:
+
+### 1. Mapping and Documenting Requirements
+
+- **Initial Assessment**: We'll begin by thoroughly evaluating the marketing team's request. We'll determine if it necessitates the creation of a completely new event or if it can be mapped to an existing event structure (e.g., a new step within a form submission process).
+- **Event Mapping**:
+  - **New Events**: If a new event is required, document the details in the tracking requirement tab for future reference.
+  - **Existing Events**: When the request aligns with an existing event (e.g., form step completion), a reference to that established event will be documented in the tracking requirement tab.
+- **eVar Mapping**:
+  - **Existing eVars**: We'll conduct a comprehensive review of your current Analytics Success Definition Report (SDR) to identify any relevant eVars that can be reused (e.g., pageName, pageURL). All reusable eVars will be documented and appropriately mapped in the tracking requirements tab.
+  - **New eVars**: In the event that entirely new information needs to be captured, document the new eVars in the Analytics Success Definition Report. This ensures consistent data collection and reporting.
+
+### 2. dataLayer Push and Documentation
+
+Upon successful documentation of business requirements in the designated Adobe format (events and eVars), the corresponding dataLayer script is created and documented in the dataLayer documentation tab.
+- These documented scripts will be provided to the development team for implementation.
+
+### 3. Report Suite Configuration (if applicable)
+
+If you added a new event or eVar in the previous step, you would need to configure the new eVars or events in your prod report suite.
+- To go to the report suite go to Analytics > Admin > Report Suites. Add eVars and/or events based on the documentation in the previous step.
+
+### 4. Configuring Rules in Launch
+
+#### Leveraging Existing Rules:
+
+- We'll thoroughly examine existing rules within Launch. If a rule already exists with a name that precisely matches the required event name (strict case-sensitivity applies), this existing rule can be efficiently reused.
+- In the scenario where the existing rule requires the incorporation of additional data elements originating from your newly created dataLayer push, these essential data elements will be meticulously created within Launch to facilitate proper data capture.
+- Subsequently, the newly created data elements will be added into the existing rule to ensure comprehensive data collection.
+
+#### Creating New Rules:
+
+- If no existing rule aligns perfectly with the new requirement, a brand new rule will be meticulously constructed within Launch. This rule will be assigned a clear and concise name that accurately reflects its purpose.
+- Any specific conditions that need to be met for the rule to trigger will be precisely defined within the rule configuration.
+- Three essential actions are fundamental to every Adobe Analytics rule. These actions will be meticulously configured within the newly created rule:
+  - **Set Variables**: This action involves the crucial mapping of eVars to their corresponding data elements within Launch. Additionally, events will be mapped to their designated event numbers within the Analytics system.
+  - **Send Beacon**: This action serves the critical function of transmitting the captured data to Adobe Analytics. In the case of link events, a custom name will be assigned (typically mirroring the name of the rule itself).
+  - **Clear Variables**: This action ensures that the utilised variables are not inadvertently carried over to subsequent data hits, maintaining data integrity.
+- Following the creation of the rule, the associated library will be formally published within the development environment of Launch. This facilitates rigorous testing to guarantee the rule functions as intended.
+- Upon successful completion of testing within the development environment, the library will be formally published to the production environment, making the new tracking functionality live on your website.
+
+### 5. Testing Rules
+
+Before deploying your rules to your production environment, it's crucial to test them thoroughly. Here's how:
+
+### Deploying Library to Dev
+
+- Once you have made the changes and created the rules/data elements, build the updated Launch library to your development (dev) environment. This is confirmed by the green dot next to your library.
+
+#### Use the DTM Switch extension:
+
+1. Install the DTM Switch extension in your browser (Chrome or Firefox).
+2. This extension allows you to easily switch between different Launch environments (dev, staging, prod) on your development website.
+3. Go to the page where you deployed the dataLayer and where you want to test your rules.
+4. Click on the DTM Switch extension, and if there is an existing Adobe snippet on the page, DTM Switch will automatically detect it.
+5. Select the environment where the library is sitting (in this example, development) and toggle on Debug.
+
+#### Use Omnibug:
+
+1. Install the Omnibug extension in your development browser.
+2. Omnibug is a debugging tool that allows you to inspect data layer values, Launch rules, and network requests.
+3. When you switch the environment to development, you will see a launch tag with development script fire in Omnibug. This confirms that you are now debugging in development mode.
+4. You can Q&A the tags here. Expand the tags, and you can see the information that is passed in the tag.
+
+### Deploy to Production (Prod)
+
+- Once you're confident that your rules are functioning correctly in the development environment, it's time to deploy them to your production environment.
+- The flow of publishing the library is in the screenshot below. It is suggested that you submit and publish to staging before finally publishing the rules to production.
+
+### 6. Monitoring
+
+- Following the implementation of the new tracking rule(s), ongoing monitoring of your data within Adobe Analytics will be conducted. This monitoring process is essential to verify that the newly implemented tracking is capturing data accurately and effectively, providing valuable insights into website visitor behaviour.
+
+## Additional Considerations
+
+- This guide offers a comprehensive overview of the general process. Specific configurations may necessitate adjustments based on the unique characteristics of your implementation.
+- Collaborative efforts with your development team are crucial during the dataLayer push implementation phase.
+- Rigorous testing of all newly created rules within the development environment is absolutely essential prior to publishing them to the production environment, ensuring the integrity of your website tracking data.

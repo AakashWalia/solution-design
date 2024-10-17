@@ -45,12 +45,6 @@ After the Launch script has been validated, your Launch property is ready and yo
 
 In the next section, we will go through configuring extensions, creating eVars, elements and rules.
 
-### Steps to create eVars and Events
-
-1. Click Analytics > Admin > Report Suites.
-2. Select the report suite for which you want to create an eVar or event and click on edit settings.
-3. Select Conversion Variables if you want to create eVars or Success Events if you want to create events.
-
 ## Extensions
 
 An extension is essentially an add-on that provides extra features or functionalities to an existing program. Think of it like adding new tools to your toolbox. Extensions unlock a whole new level of tracking capabilities, data elements, and event actions.
@@ -82,6 +76,12 @@ We are using a dataLayer Manager extension that reads the dataLayer pushes that 
 - Adobe provides some core extensions, but there are many more from other vendors available in the catalogue.
 - You can even build custom extensions with the Core extension as a starting point, giving you control over your tracking setup.
 
+### Steps to create eVars and Events
+
+1. Click Analytics > Admin > Report Suites.
+2. Select the report suite for which you want to create an eVar or event and click on edit settings.
+3. Select Conversion Variables if you want to create eVars or Success Events if you want to create events.
+
 ## Rules/Tags Configuration
 
 ### Rules Definition And Structure
@@ -97,8 +97,7 @@ Adobe Launch uses rules to control when and how tags (marketing pixels, tracking
 
 Imagine tracking form completions for TAL users. You'd set up a rule with these conditions:
 - **Event**: Form completion
-- **Data Element**: User Type ()
-- **Page Location**: Asset Finance Page
+- **Data Elements**: Gender, Page Name, Email, Click Text
 
 If all these conditions are met, the rule would trigger the firing of the relevant form completion tracking tag.
 
@@ -121,16 +120,16 @@ A data element is a variable that stores a specific piece of information from yo
 
 ### Examples of Data Elements:
 
-- **Asset Type**: Captures the type of asset the user is looking for.
+- **Gender**: Captures the gender the user inputted in the form.
 - **Page Name**: Extract the name of the current page from the URL.
-- **User ID**: Identify registered users for personalised tracking.
+- **Email**: Captures emails of the users.
 - **Click Text**: Tracks the name of the button click so you can report on a specific button.
 
 ### How to Create a Data Element:
 
 1. Go to the "Data Elements" tab in your Launch property.
 2. Click "Create New Data Element."
-3. Give it a clear name (e.g., "Asset Type").
+3. Give it a clear name (e.g., "Email").
 4. Choose the extension that provides the data (e.g., dataLayer manager).
 5. Select the specific data type (e.g., "Context Aware").
 6. Configure the data source (e.g., specify the dataLayer path. Make sure it matches the name of the parameter in your dataLayer object).
@@ -150,6 +149,74 @@ Once you have data elements, you can use them in your tracking rules in set vari
 
 By using data elements effectively, you can build a more organised and efficient tracking system for your website.
 
+# Step-by-Step Guide: Creating Rules for Form Complete
 
+## 1. Configure Data Elements
 
+- **Email**:
+  - Go to **Data Elements** in Adobe Launch.
+  - Click **Create New Data Element**.
+  - Name it `Email`.
+  - Choose the **dataLayer Manager** extension.
+  - Set the data element path to the email field in your dataLayer **user.email** .
+  - Save the data element.
 
+- **Gender**:
+  - Repeat the above steps, naming it `Gender` and setting the correct path **form.gender**.
+
+- **Page Name**:
+  - Repeat the above steps, naming it `Page Name` and setting the correct path **pageInfo.pageName**.
+
+- **Click Text**:
+  - Repeat the above steps, naming it `Click Text` and setting the correct path **clickText**.
+
+## 2. Create the Rule
+
+- Go to **Rules** in Adobe Launch.
+- Click **Create New Rule**.
+- Name the rule `Form Complete`.
+
+## 3. Set the Trigger
+
+- Click **Add Event**.
+- Select the **dataLayer Manager** extension.
+- Choose **Event Type** as `dataLayer Push`.
+- Set the **Event Name** to `interaction`.
+- Save the event.
+
+## 4. Set the condition
+
+- Add a condition to ensure the rule only fires when (for example)`Form Name` is `quote`:
+  - Go to **Conditions** in the rule setup.
+  - Click **Add Condition**.
+  - Select **Core** as the extension.
+  - Choose **Value Comparison**.
+  - Set the **Value** to `Form Name` (the data element you created).
+  - Choose **Equals** as the operator.
+  - Set the comparison value to `quote`.
+
+## 5. Configure Actions
+
+- Click **Add Action**.
+- Select **Adobe Analytics** as the extension.
+- Choose **Set Variables**.
+
+- **Map eVars**:
+  - Map `Email` to the corresponding eVar (check this in your report suite).
+  - Map `Gender` to the corresponding eVar (check this in your report suite).
+  - Map `Page Name` to the corresponding eVar (check this in your report suite).
+  - Map `Click Text` to the corresponding eVar (check this in your report suite).
+  - Map `event` to the corresponding event number (check this in your report suite).
+
+- Click **Add Action**.
+- Select **Adobe Analytics** as the extension.
+- Choose **Send Beacon** and give the event a name.
+
+- Click **Add Action**.
+- Select **Adobe Analytics** as the extension.
+- Choose **Clear Variables*
+
+- Click **Keep Changes**.
+
+- Build and deploy the library to the development environment.
+- Test using the browser console and debugging tools like Omnibug to ensure the rule fires correctly.

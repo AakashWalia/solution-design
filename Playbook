@@ -156,7 +156,7 @@ By using data elements effectively, you can build a more organised and efficient
 - **Email**:
   - Go to **Data Elements** in Adobe Launch.
   - Click **Create New Data Element**.
-  - Name it `Email`.
+  - Name it `DLM - Email`.
   - Choose the **dataLayer Manager** extension.
   - Set the data element path to the email field in your dataLayer **user.email** .
   - Save the data element.

@@ -14,7 +14,7 @@ Follow the steps below to see how you can set up a new Launch property.
 
 1. Go to the Data Collection from your home screen of Adobe Experience Cloud. You should now see the Tags Properties screen.
 
-![Admin Console Snapshot](./pics/Screenshot 2024-10-17 at 11.22.51 AM.png)
+![Admin Console Snapshot](./pics/AdminConsole.png)
 
 3. To create a property, click the New Property button.
 4. Name your property (e.g., TAL New Website).

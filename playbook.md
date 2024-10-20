@@ -13,7 +13,9 @@ A property is a container house with extensions, rules, data elements, and libra
 Follow the steps below to see how you can set up a new Launch property.
 
 1. Go to the Data Collection from your home screen of Adobe Experience Cloud. You should now see the Tags Properties screen.
+
 ![Admin Console Snapshot](./pics/Screenshot 2024-10-17 at 11.22.51 AM.png)
+
 3. To create a property, click the New Property button.
 4. Name your property (e.g., TAL New Website).
 5. As the domain, enter `tal.com.au` since this is the domain where the tal site is hosted. Although the “Domain” field is required, the tag property will work on any domain where it’s implemented. The main purpose of this field is to pre-populate menu options in the Rule builder.

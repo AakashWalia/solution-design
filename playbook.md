@@ -252,7 +252,7 @@ By using data elements effectively, you can build a more organised and efficient
 
 - Click **Add Action**.
 - Select **Adobe Analytics** as the extension.
-- Choose **Clear Variables*
+- Choose **Clear Variables**
 - Click **Keep Changes**.
 
 - Build and deploy the library to the development environment.

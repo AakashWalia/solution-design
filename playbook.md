@@ -16,10 +16,15 @@ Follow the steps below to see how you can set up a new Launch property.
 
 ![Admin Console Snapshot](./pics/AdminConsole.png)
 
-3. To create a property, click the New Property button.
-4. Name your property (e.g., TAL New Website).
-5. As the domain, enter `tal.com.au` since this is the domain where the tal site is hosted. Although the “Domain” field is required, the tag property will work on any domain where it’s implemented. The main purpose of this field is to pre-populate menu options in the Rule builder.
-6. Click the Save button.
+2. To create a property, click the New Property button.
+
+![Tags](./pics/Tags.png)
+
+3. Name your property (e.g., TAL New Website).
+4. As the domain, enter `tal.com.au` since this is the domain where the tal site is hosted. Although the “Domain” field is required, the tag property will work on any domain where it’s implemented. The main purpose of this field is to pre-populate menu options in the Rule builder.
+5. Click the Save button
+
+![save](./pics/save.png)
 
 **Note**: This is a one-time step. If you already have a property setup, you don't need to set up a new property. However, if you are onboarding a new product with a different domain, it is recommended to create a separate property.
 
@@ -27,10 +32,14 @@ Follow the steps below to see how you can set up a new Launch property.
 
 The embed code is a `<script>` tag that you put on your webpages to load and execute the logic you build in tags. If you load the library asynchronously, the browser continues to load the page, retrieves the tag library, and executes it in parallel. In this case, there is only one embed code, which you put in the `<head>`.
 
+![environment](./pics/environment.png)
+
 1. From the property Overview screen, click Environments in the left navigation to go to the environments page. Note that Development, Staging, and Production environments have been pre-created for you. In the Development row, click the Install icon to open the modal.
 2. Note that tags will default to the asynchronous embed codes.
 3. Click the Copy icon to copy the embed code to your clipboard.
 4. Click Close to close the modal.
+
+![copy](./pics/deploy.png)
 
 - Copy the code to be pasted in the head tag.
 - Implement the embed code in the `<head>` of the HTML Page.
@@ -38,9 +47,13 @@ The embed code is a `<script>` tag that you put on your webpages to load and exe
 
 ### Adobe Launch Script Q&A
 
-Open the developer console and navigate to the “Console” tab.
+1. Open the developer console and navigate to the “Console” tab.
 
-- Type the command, `_satellite.property.name` and if the script has been implemented correctly then this command should return ‘TAL New Website’ as the value. Please refer to an example screenshot below.
+![console](./pics/console.png)
+
+2. Type the command, `_satellite.property.name` and if the script has been implemented correctly then this command should return ‘TAL New Website’ as the value. Please refer to an example screenshot below.
+
+![launchtest](./pics/launchtest.png)
 
 After the Launch script has been validated, your Launch property is ready and you can start creating rules, data elements, extensions, and libraries. Before you start implementing rules in Launch, it is suggested to set up report suites in Adobe Analytics.
 
@@ -58,6 +71,8 @@ An extension is essentially an add-on that provides extra features or functional
 - **Catalogue**: Explore a library of additional extensions you can add to expand your toolbox.
 - **Updates**: Check for improvements or bug fixes for your existing extensions.
 
+![install](./pics/extensioninstall.png)
+
 ### Adding and configuring extensions:
 
 - **Browse the catalogue**: Find the extension that fits your needs, like one for reading dataLayer pushes or integrating with a specific marketing platform.
@@ -67,10 +82,19 @@ An extension is essentially an add-on that provides extra features or functional
 
 We are using a dataLayer Manager extension that reads the dataLayer pushes that we have implemented on the website.
 - **Configuration**: The extension is easy to configure and requires a dataLayer object be named so it can read the specific object on the website.
+
+![config](./pics/extensionconfig.png)
+  
 - **Use**: After configuration, the extension can be used in rules to trigger specific actions.
   - Click on Add Rule > Click on Add on events.
+
+  ![ruleconfig](./pics/rulestrigger.png)
+  
   - Choose the dataLayer extension.
   - Select Event Type as dataLayer push and give the appropriate event type name to the rules corresponding to your dataLayer push.
+
+  ![extensiondatalayer](./pics/eventconfigex.png)
+
   - Save the rule. Your rule will now trigger actions whenever there is a **'interaction'** dataLayer object on the website.
 
 #### Remember:
@@ -84,6 +108,8 @@ We are using a dataLayer Manager extension that reads the dataLayer pushes that 
 1. Click Analytics > Admin > Report Suites.
 2. Select the report suite for which you want to create an eVar or event and click on edit settings.
 3. Select Conversion Variables if you want to create eVars or Success Events if you want to create events.
+
+![AAConfig](./pics/AAConfig.png)
 
 ## Rules/Tags Configuration
 
@@ -163,6 +189,8 @@ By using data elements effectively, you can build a more organised and efficient
   - Choose the **dataLayer Manager** extension.
   - Set the data element path to the email field in your dataLayer **user.email** .
   - Save the data element.
+ 
+![Email](./pics/dataelement.png)
 
 - **Gender**:
   - Repeat the above steps, naming it `Gender` and setting the correct path **form.gender**.
@@ -187,6 +215,8 @@ By using data elements effectively, you can build a more organised and efficient
 - Set the **Event Name** to `interaction`.
 - Save the event.
 
+![trigger](./pics/extensionusedfortrigger.png)
+
 ## 4. Set the condition
 
 - Add a condition to ensure the rule only fires when (for example)`Form Name` is `quote`:
@@ -197,13 +227,14 @@ By using data elements effectively, you can build a more organised and efficient
   - Set the **Value** to `Form Name` (the data element you created).
   - Choose **Equals** as the operator.
   - Set the comparison value to `quote`.
+ 
+![condition](./pics/conditionsetup.png)
 
 ## 5. Configure Actions
 
 - Click **Add Action**.
 - Select **Adobe Analytics** as the extension.
 - Choose **Set Variables**.
-
 - **Map eVars**:
   - Map `Email` to the corresponding eVar (check this in your report suite).
   - Map `Gender` to the corresponding eVar (check this in your report suite).
@@ -211,14 +242,17 @@ By using data elements effectively, you can build a more organised and efficient
   - Map `Click Text` to the corresponding eVar (check this in your report suite).
   - Map `event` to the corresponding event number (check this in your report suite).
 
+![action](./pics/setvariable.png)
+
 - Click **Add Action**.
 - Select **Adobe Analytics** as the extension.
 - Choose **Send Beacon** and give the event a name.
 
+![sendbeacon](./pics/sendbeacon.png)
+
 - Click **Add Action**.
 - Select **Adobe Analytics** as the extension.
 - Choose **Clear Variables*
-
 - Click **Keep Changes**.
 
 - Build and deploy the library to the development environment.

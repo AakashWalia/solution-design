@@ -32,18 +32,18 @@ Follow the steps below to see how you can set up a new Launch property.
 
 The embed code is a `<script>` tag that you put on your webpages to load and execute the logic you build in tags. If you load the library asynchronously, the browser continues to load the page, retrieves the tag library, and executes it in parallel. In this case, there is only one embed code, which you put in the `<head>`.
 
-![environment](./pics/environment.png)
-
 1. From the property Overview screen, click Environments in the left navigation to go to the environments page. Note that Development, Staging, and Production environments have been pre-created for you. In the Development row, click the Install icon to open the modal.
 2. Note that tags will default to the asynchronous embed codes.
 3. Click the Copy icon to copy the embed code to your clipboard.
 4. Click Close to close the modal.
 
-![copy](./pics/deploy.png)
+![environment](./pics/environment.png)
 
 - Copy the code to be pasted in the head tag.
 - Implement the embed code in the `<head>` of the HTML Page.
 - The copied script must be implemented on all pages in the development environment. The script must be embedded in the `<head>` tag of all pages. Repeat the same process for the Staging environment and Production environment.
+
+![copy](./pics/deploy.png)
 
 ### Adobe Launch Script Q&A
 
@@ -77,6 +77,15 @@ An extension is essentially an add-on that provides extra features or functional
 
 - **Browse the catalogue**: Find the extension that fits your needs, like one for reading dataLayer pushes or integrating with a specific marketing platform.
 - **Activate and configure**: Simply add the chosen extension to your Launch toolbox and adjust its settings if needed (not all extensions require configuration).
+
+### Essential extensions for Analytics Implementation:
+
+**Core**: No configuration required but to install adobe libraries on your website. You need to install and push Core extension to production before you start creating rules.
+
+**Adobe Analytics**: This extension sends server call to analytics and enables different action like set variables, send beacon and clear variables. These actions are necessary for creating rules.
+The following configuration is **required**:
+  1.Report Suites - If you have a dev/staging/prod report suites setup. Populate report suite IDs respectively to send data to specific report suites. You can find your report suite id by going to **Analytics> Admin> Report Suite**. 
+  2.Tracking Server - Setup the tracking server. Your tracking server is **domain.sc.omtrdc.net**. If you are setting it up for TAL. Your tracking server is tal.sc.omtrdc.net
 
 #### Example:
 
@@ -168,7 +177,7 @@ A data element is a variable that stores a specific piece of information from yo
 
 Once you have data elements, you can use them in your tracking rules in set variables:
 - **Example**: Create a rule to track form completions.
-- Use another data element for "Asset Type" to identify what asset the users submitted the form for.
+- Use another data element for "Gender" to identify what gender of users submitted the form. 
 
 #### Key Points:
 
@@ -178,7 +187,10 @@ Once you have data elements, you can use them in your tracking rules in set vari
 
 By using data elements effectively, you can build a more organised and efficient tracking system for your website.
 
-# Step-by-Step Guide: Creating Rules for Form Complete
+# Step-by-Step Guide: Creating Rules
+
+The following steps highlight how you can create rules and how you can configure actions for the rules. Note that the number of rules depend on your use case but usually you will to create a **Pageview** and **Interaction** click. 
+I have listed steps to create a form complete rule. If you want to track form complete as a separate rule, follow the steps below. These steps can be followed to create Pageview and Interaction rules too. 
 
 ## 1. Configure Data Elements
 

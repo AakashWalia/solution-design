@@ -212,9 +212,6 @@ I have listed steps to create a form complete rule. If you want to track form co
 - **Page Name**:
   - Repeat the above steps, naming it `Page Name` and setting the correct path **pageInfo.pageName**.
 
-- **Click Text**:
-  - Repeat the above steps, naming it `Click Text` and setting the correct path **clickText**.
-
 ## 2. Create the Rule
 
 - Go to **Rules** in Adobe Launch.
@@ -242,7 +239,6 @@ I have listed steps to create a form complete rule. If you want to track form co
   - Map `Email` to the corresponding eVar (check this in your report suite).
   - Map `Gender` to the corresponding eVar (check this in your report suite).
   - Map `Page Name` to the corresponding eVar (check this in your report suite).
-  - Map `Click Text` to the corresponding eVar (check this in your report suite).
   - Map `event` to the corresponding event number (check this in your report suite).
 
 ![action](./pics/setvariable.png)
@@ -278,9 +274,9 @@ I have listed steps to create a form complete rule. If you want to track form co
 
 - **Page Name**:
   - Repeat the above steps, naming it `Page Name` and setting the correct path **pageInfo.pageName**.
-
+ 
 - **Click Text**:
-  - Repeat the above steps, naming it `Click Text` and setting the correct path **clickText**.
+  - Repeat the above steps, naming it `Click Text` and setting the correct path **interaction.clickText**.
 
 ## 2. Create the Rule
 
@@ -352,13 +348,13 @@ I have listed steps to create a form complete rule. If you want to track form co
   - Repeat the above steps, naming it `Page Name` and setting the correct path **pageInfo.pageName**.
 
 - **Click Text**:
-  - Repeat the above steps, naming it `Click Text` and setting the correct path **clickText**.
+  - Repeat the above steps, naming it `Click Text` and setting the correct path **interaction.clickText**.
 
 ## 2. Create the Rule
 
 - Go to **Rules** in Adobe Launch.
 - Click **Create New Rule**.
-- Name the rule `Form Complete`.
+- Name the rule `Generic Interaction`.
 
 ## 3. Set the Trigger
 

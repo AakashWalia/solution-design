@@ -192,6 +192,149 @@ By using data elements effectively, you can build a more organised and efficient
 The following steps highlight how you can create rules and how you can configure actions for the rules. Note that the number of rules depend on your use case but usually you will to create a **Pageview** and **Interaction** click. 
 I have listed steps to create a form complete rule. If you want to track form complete as a separate rule, follow the steps below. These steps can be followed to create Pageview and Interaction rules too. 
 
+## Pageview
+
+## 1. Configure Data Elements
+
+- **Email**:
+  - Go to **Data Elements** in Adobe Launch.
+  - Click **Create New Data Element**.
+  - Name it `DLM - Email`.
+  - Choose the **dataLayer Manager** extension.
+  - Set the data element path to the email field in your dataLayer **user.email** .
+  - Save the data element.
+ 
+![Email](./pics/dataelement.png)
+
+- **Gender**:
+  - Repeat the above steps, naming it `Gender` and setting the correct path **form.gender**.
+
+- **Page Name**:
+  - Repeat the above steps, naming it `Page Name` and setting the correct path **pageInfo.pageName**.
+
+- **Click Text**:
+  - Repeat the above steps, naming it `Click Text` and setting the correct path **clickText**.
+
+## 2. Create the Rule
+
+- Go to **Rules** in Adobe Launch.
+- Click **Create New Rule**.
+- Name the rule `Form Complete`.
+
+## 3. Set the Trigger
+
+- Click **Add Event**.
+- Select the **dataLayer Manager** extension.
+- Choose **Event Type** as `dataLayer Push`.
+- Set the **Event Name** to `pageView`.
+- Save the event.
+
+![trigger](./pics/extensionusedfortrigger.png)
+
+## 4. Set the condition
+
+- No condition is required to trigger a pageview event. Use this section if you want to exclude pageviews to fire on certain pages.
+
+## 5. Configure Actions
+
+- Click **Add Action**.
+- Select **Adobe Analytics** as the extension.
+- Choose **Set Variables**.
+- **Map eVars**:
+  - Map `Email` to the corresponding eVar (check this in your report suite).
+  - Map `Gender` to the corresponding eVar (check this in your report suite).
+  - Map `Page Name` to the corresponding eVar (check this in your report suite).
+  - Map `Click Text` to the corresponding eVar (check this in your report suite).
+  - Map `event` to the corresponding event number (check this in your report suite).
+
+![action](./pics/setvariable.png)
+
+- Click **Add Action**.
+- Select **Adobe Analytics** as the extension.
+- Choose **Send Beacon** and select **s.t():Send data to Adobe Analytics and treat it as a page view** .
+
+- Click **Add Action**.
+- Select **Adobe Analytics** as the extension.
+- Choose **Clear Variables**
+- Click **Keep Changes**.
+
+- Build and deploy the library to the development environment.
+- Test using the browser console and debugging tools like Omnibug to ensure the rule fires correctly.
+
+## Generic Interaction
+
+## 1. Configure Data Elements
+
+- **Email**:
+  - Go to **Data Elements** in Adobe Launch.
+  - Click **Create New Data Element**.
+  - Name it `DLM - Email`.
+  - Choose the **dataLayer Manager** extension.
+  - Set the data element path to the email field in your dataLayer **user.email** .
+  - Save the data element.
+ 
+![Email](./pics/dataelement.png)
+
+- **Gender**:
+  - Repeat the above steps, naming it `Gender` and setting the correct path **form.gender**.
+
+- **Page Name**:
+  - Repeat the above steps, naming it `Page Name` and setting the correct path **pageInfo.pageName**.
+
+- **Click Text**:
+  - Repeat the above steps, naming it `Click Text` and setting the correct path **clickText**.
+
+## 2. Create the Rule
+
+- Go to **Rules** in Adobe Launch.
+- Click **Create New Rule**.
+- Name the rule `Form Complete`.
+
+## 3. Set the Trigger
+
+- Click **Add Event**.
+- Select the **dataLayer Manager** extension.
+- Choose **Event Type** as `dataLayer Push`.
+- Set the **Event Name** to `interaction`.
+- Save the event.
+
+![trigger](./pics/extensionusedfortrigger.png)
+
+## 4. Set the condition
+
+- No condition is required to trigger an interaction event. Use this section if you want to exclude certain elements from firing an analytics call to adobe.
+
+## 5. Configure Actions
+
+- Click **Add Action**.
+- Select **Adobe Analytics** as the extension.
+- Choose **Set Variables**.
+- **Map eVars**:
+  - Map `Email` to the corresponding eVar (check this in your report suite).
+  - Map `Gender` to the corresponding eVar (check this in your report suite).
+  - Map `Page Name` to the corresponding eVar (check this in your report suite).
+  - Map `Click Text` to the corresponding eVar (check this in your report suite).
+  - Map `event` to the corresponding event number (check this in your report suite).
+
+![action](./pics/setvariable.png)
+
+- Click **Add Action**.
+- Select **Adobe Analytics** as the extension.
+- Choose **Send Beacon** and give the event a name (example - click event).
+
+![sendbeacon](./pics/sendbeacon.png)
+
+- Click **Add Action**.
+- Select **Adobe Analytics** as the extension.
+- Choose **Clear Variables**
+- Click **Keep Changes**.
+
+- Build and deploy the library to the development environment.
+- Test using the browser console and debugging tools like Omnibug to ensure the rule fires correctly.
+
+
+## Form Complete
+
 ## 1. Configure Data Elements
 
 - **Email**:
@@ -266,6 +409,6 @@ I have listed steps to create a form complete rule. If you want to track form co
 - Select **Adobe Analytics** as the extension.
 - Choose **Clear Variables**
 - Click **Keep Changes**.
-
+  
 - Build and deploy the library to the development environment.
 - Test using the browser console and debugging tools like Omnibug to ensure the rule fires correctly.

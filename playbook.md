@@ -219,7 +219,7 @@ I have listed steps to create a form complete rule. If you want to track form co
 
 - Go to **Rules** in Adobe Launch.
 - Click **Create New Rule**.
-- Name the rule `Form Complete`.
+- Name the rule `Page View`.
 
 ## 3. Set the Trigger
 
@@ -228,8 +228,6 @@ I have listed steps to create a form complete rule. If you want to track form co
 - Choose **Event Type** as `dataLayer Push`.
 - Set the **Event Name** to `pageView`.
 - Save the event.
-
-![trigger](./pics/extensionusedfortrigger.png)
 
 ## 4. Set the condition
 
@@ -288,7 +286,7 @@ I have listed steps to create a form complete rule. If you want to track form co
 
 - Go to **Rules** in Adobe Launch.
 - Click **Create New Rule**.
-- Name the rule `Form Complete`.
+- Name the rule `Generic Interaction`.
 
 ## 3. Set the Trigger
 
